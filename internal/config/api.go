@@ -25,7 +25,7 @@ func (c ApiConfig) GetAPIKey() string {
 		return c.APIKey
 	}
 	if c.APIKeyCommand != "" {
-		out, err := exec.Command("sh", "-c", c.APIKeyCommand).Output()
+		out, err := exec.Command("sh", "-c", c.APIKeyCommand).Output() // #nosec G204
 		if err != nil {
 			panic(fmt.Sprintf("failed to run api_key_command %q: %v", c.APIKeyCommand, err))
 		}
