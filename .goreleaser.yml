@@ -28,12 +28,14 @@ builds:
 
 archives:
   - id: ten
-    builds:
+    ids:
       - ten
-    format: tar.gz
+    formats:
+      - tar.gz
     format_overrides:
       - goos: windows
-        format: zip
+        formats:
+          - zip
     name_template: >-
       {{ .ProjectName }}_
       {{- .Os }}_
