@@ -40,7 +40,7 @@ func Customize(p config.Prompt, params Params, customText string) config.Prompt 
 			continue
 		}
 		for _, path := range matches {
-			data, err := os.ReadFile(path)
+			data, err := os.ReadFile(path) // #nosec G304 -- path comes from user-supplied glob, intentional by design
 			if err != nil {
 				fmt.Fprintf(os.Stderr, "warning: could not read %q: %v\n", path, err)
 				continue

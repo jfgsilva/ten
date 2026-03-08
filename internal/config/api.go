@@ -102,7 +102,7 @@ func defaultAPIConfigs() map[string]ApiConfig {
 
 // GenerateDefaultAPIConfigs writes a stub .api_configs.toml.
 func GenerateDefaultAPIConfigs() error {
-	if err := os.MkdirAll(ConfigDir(), 0o755); err != nil {
+	if err := os.MkdirAll(ConfigDir(), 0o750); err != nil {
 		return err
 	}
 
@@ -118,5 +118,5 @@ func GenerateDefaultAPIConfigs() error {
 		return err
 	}
 
-	return toml.NewEncoder(f).Encode(defaultAPIConfigs())
+	return toml.NewEncoder(f).Encode(defaultAPIConfigs()) // #nosec G117 -- APIKey field is intentional in config file format
 }

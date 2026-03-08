@@ -54,7 +54,7 @@ Examples:
 		Args:         cobra.MaximumNArgs(2),
 		SilenceUsage: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			isInteractive := term.IsTerminal(int(os.Stdin.Fd()))
+			isInteractive := term.IsTerminal(int(os.Stdin.Fd())) // #nosec G115 -- standard idiom, safe on all supported platforms
 
 			if err := config.EnsureConfigFiles(isInteractive); err != nil {
 				return fmt.Errorf("config setup: %w", err)
@@ -159,7 +159,9 @@ Examples:
 					fmt.Fprintf(os.Stderr, "Warning: prompt is %d chars (limit %d). Continue? [y/N] ",
 						totalChars, *p.CharLimit)
 					var answer string
-					fmt.Scanln(&answer)
+					if _, err := fmt.Scanln(&answer); err != nil {
+						return fmt.Errorf("aborted")
+					}
 					if strings.ToLower(answer) != "y" {
 						return fmt.Errorf("aborted")
 					}

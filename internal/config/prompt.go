@@ -7,7 +7,7 @@ import (
 	"github.com/BurntSushi/toml"
 )
 
-const PlaceholderToken = "#[<input>]"
+const PlaceholderToken = "#[<input>]" // #nosec G101 -- not a credential, this is a template placeholder
 
 // Message is a single chat message.
 type Message struct {
@@ -75,7 +75,7 @@ func LoadConversation() (Prompt, error) {
 
 // SaveConversation writes p to conversation.toml.
 func SaveConversation(p Prompt) error {
-	if err := os.MkdirAll(ConfigDir(), 0o755); err != nil {
+	if err := os.MkdirAll(ConfigDir(), 0o750); err != nil {
 		return err
 	}
 	f, err := os.Create(ConversationPath())
@@ -88,7 +88,7 @@ func SaveConversation(p Prompt) error {
 
 // GenerateDefaultPrompts writes a starter prompts.toml.
 func GenerateDefaultPrompts() error {
-	if err := os.MkdirAll(ConfigDir(), 0o755); err != nil {
+	if err := os.MkdirAll(ConfigDir(), 0o750); err != nil {
 		return err
 	}
 	f, err := os.Create(PromptsPath())
