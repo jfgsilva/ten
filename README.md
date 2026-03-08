@@ -5,7 +5,7 @@
 [![CI](https://github.com/jfgsilva/ten/actions/workflows/ci.yml/badge.svg)](https://github.com/jfgsilva/ten/actions/workflows/ci.yml)
 [![Publish](https://github.com/jfgsilva/ten/actions/workflows/publish.yml/badge.svg)](https://github.com/jfgsilva/ten/actions/workflows/publish.yml)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
-[![Go Version](https://img.shields.io/badge/go-1.22-00ADD8.svg)](https://go.dev/dl/)
+[![Go Version](https://img.shields.io/badge/go-1.24-00ADD8.svg)](https://go.dev/dl/)
 
 `ten` is a Go port of [smartcat](https://github.com/efugier/smartcat). It reads text from stdin
 or arguments, sends it to an LLM API, and writes the response to stdout. Designed for Unix
