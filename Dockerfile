@@ -6,6 +6,6 @@ COPY . .
 RUN CGO_ENABLED=0 go build -ldflags="-s -w" -o /ten ./cmd/ten
 
 FROM alpine:3.23
-RUN apk add --no-cache ca-certificates
+RUN apk add --no-cache ca-certificates && apk upgrade --no-cache
 COPY --from=builder /ten /usr/local/bin/ten
 ENTRYPOINT ["ten"]
