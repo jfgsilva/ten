@@ -17,11 +17,40 @@ Supports: OpenAI, Anthropic, Gemini, Ollama, Mistral, Groq, Cerebras, Azure Open
 
 ## Installation
 
-### go install (requires Go 1.22+)
+### go install (recommended)
+
+Requires Go 1.26+. The binary runs natively on your machine, so password managers
+(`op`, `bw`, `pass`) and local tools like Ollama work without any extra setup.
 
 ```sh
 go install github.com/jfgsilva/ten/cmd/ten@latest
 ```
+
+Make sure `$(go env GOPATH)/bin` is in your `PATH`:
+
+```sh
+echo 'export PATH="$PATH:$(go env GOPATH)/bin"' >> ~/.zshrc
+source ~/.zshrc
+```
+
+To update to the latest version, run the same command again:
+
+```sh
+go install github.com/jfgsilva/ten/cmd/ten@latest
+```
+
+### Download a release binary (no Go required)
+
+Pre-built binaries for Linux, macOS, and Windows are available on the
+[Releases page](https://github.com/jfgsilva/ten/releases).
+
+```sh
+# Example for macOS arm64 (Apple Silicon)
+curl -L https://github.com/jfgsilva/ten/releases/latest/download/ten_darwin_arm64.tar.gz | tar xz
+sudo mv ten /usr/local/bin/
+```
+
+To update, download the latest release and replace the binary.
 
 ### Docker / Podman alias (no local Go required)
 
@@ -54,6 +83,11 @@ source ~/.zshrc   # or source ~/.bashrc
 The config directory is mounted read-only (`:ro`) — the container can read your API keys and
 prompts but cannot modify them. The current working directory is mounted at `/work` so ten can
 read context files via `-c` globs.
+
+> **Note:** Password manager CLIs (`op`, `bw`, `pass`) do **not** work inside the container —
+> they require access to a daemon or keychain running on your host. If you use `api_key_command`
+> with a password manager, use the `go install` method instead. Alternatively, set a plain
+> `api_key = "..."` in your config for Docker-only use.
 
 ### Build from source
 
@@ -193,6 +227,7 @@ Flags:
   -t, --temperature float64   override temperature
   -l, --char-limit int        max chars (0 = no limit)
   -c, --context stringArray   glob patterns for context files
+      --version               print version and exit
 ```
 
 ---
@@ -221,12 +256,34 @@ git tag -a v1.0.0 -m "Release v1.0.0"
 git push origin v1.0.0
 ```
 
-This triggers the Publish workflow which builds a multi-platform image (`linux/amd64`,
-`linux/arm64`) and pushes it to GHCR. The following image tags are produced:
+This triggers the Publish workflow which:
+- Builds `.tar.gz` / `.zip` release archives for all platforms and attaches them to the GitHub Release
+- Builds a multi-platform Docker image (`linux/amd64`, `linux/arm64`) and pushes it to GHCR
+- Generates a `checksums.txt` for artifact verification
+
+**Release archives:**
+
+| Platform | File |
+|---|---|
+| Linux x86_64 | `ten_linux_x86_64.tar.gz` |
+| Linux arm64 | `ten_linux_arm64.tar.gz` |
+| macOS x86_64 | `ten_darwin_x86_64.tar.gz` |
+| macOS arm64 | `ten_darwin_arm64.tar.gz` |
+| Windows x86_64 | `ten_windows_x86_64.zip` |
+
+**Docker image tags:**
 
 - `ghcr.io/jfgsilva/ten:1.0.0` — exact version
 - `ghcr.io/jfgsilva/ten:1.0` — floating minor pointer
 - `ghcr.io/jfgsilva/ten:latest` — always the latest release
+
+**To update the Docker alias**, pull the latest image:
+
+```sh
+docker pull ghcr.io/jfgsilva/ten:latest
+# or
+podman pull ghcr.io/jfgsilva/ten:latest
+```
 
 ---
 

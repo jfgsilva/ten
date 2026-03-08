@@ -16,6 +16,8 @@ import (
 
 const defaultPromptName = "default"
 
+var version = "dev"
+
 func main() {
 	// Test mode: mirror stdin to stdout for integration testing
 	if os.Getenv("TEN_TEST") == "1" {
@@ -51,6 +53,7 @@ Examples:
   ten test "parametrize the template"
   ten -e "follow up question"
   ten "explain this" -c **/*.go main.go`,
+		Version:      version,
 		Args:         cobra.MaximumNArgs(2),
 		SilenceUsage: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
