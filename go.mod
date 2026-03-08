@@ -3,7 +3,7 @@ module github.com/jfgsilva/ten
 go 1.26
 
 require (
-	github.com/BurntSushi/toml v1.3.2
+	github.com/BurntSushi/toml v1.6.0
 	github.com/spf13/cobra v1.8.0
 	golang.org/x/term v0.18.0
 )
