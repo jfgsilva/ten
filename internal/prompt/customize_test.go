@@ -77,9 +77,9 @@ func TestCustomizeContextFile(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	defer os.Remove(f.Name())
-	f.WriteString("hello there")
-	f.Close()
+	defer os.Remove(f.Name()) //nolint:errcheck
+	f.WriteString("hello there") //nolint:errcheck
+	f.Close()                    //nolint:errcheck
 
 	customized := Customize(p, Params{Context: []string{f.Name()}}, "")
 	if len(customized.Messages) < 2 {

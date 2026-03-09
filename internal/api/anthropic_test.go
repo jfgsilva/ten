@@ -22,7 +22,7 @@ func TestCallAnthropic(t *testing.T) {
 				{"type": "text", "text": "hello from anthropic"},
 			},
 		}
-		json.NewEncoder(w).Encode(resp)
+		json.NewEncoder(w).Encode(resp) //nolint:errcheck
 	}))
 	defer srv.Close()
 

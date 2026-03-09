@@ -14,7 +14,7 @@ func TestCallOllama(t *testing.T) {
 		resp := map[string]any{
 			"message": map[string]string{"role": "assistant", "content": "hello from ollama"},
 		}
-		json.NewEncoder(w).Encode(resp)
+		json.NewEncoder(w).Encode(resp) //nolint:errcheck
 	}))
 	defer srv.Close()
 

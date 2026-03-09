@@ -29,7 +29,7 @@ func TestCallGemini(t *testing.T) {
 				},
 			},
 		}
-		json.NewEncoder(w).Encode(resp)
+		json.NewEncoder(w).Encode(resp) //nolint:errcheck
 	}))
 	defer srv.Close()
 
@@ -55,7 +55,7 @@ func TestCallGemini(t *testing.T) {
 func TestGeminiSystemMessagePrependedToUser(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		var req geminiRequest
-		json.NewDecoder(r.Body).Decode(&req)
+		json.NewDecoder(r.Body).Decode(&req) //nolint:errcheck
 		if len(req.Contents) != 1 {
 			t.Errorf("want 1 content, got %d", len(req.Contents))
 		}
@@ -70,7 +70,7 @@ func TestGeminiSystemMessagePrependedToUser(t *testing.T) {
 				{"content": map[string]any{"parts": []map[string]string{{"text": "ok"}}}},
 			},
 		}
-		json.NewEncoder(w).Encode(resp)
+		json.NewEncoder(w).Encode(resp) //nolint:errcheck
 	}))
 	defer srv.Close()
 
