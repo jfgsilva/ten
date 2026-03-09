@@ -29,12 +29,12 @@ jobs:
 
       - name: Test with coverage
         run: |
-          go test -coverprofile=coverage.out -covermode=atomic ./internal/...
-          go tool cover -func=coverage.out
+          go test -race -coverprofile=coverage.txt -covermode=atomic ./internal/...
+          go tool cover -func=coverage.txt
 
           check_threshold() {
             pkg="$1"; threshold="$2"
-            pct=$(go tool cover -func=coverage.out \
+            pct=$(go tool cover -func=coverage.txt \
                   | grep "^${pkg}" \
                   | awk 'END {gsub(/%/,"",$NF); print $NF}')
             ok=$(awk -v p="$pct" -v t="$threshold" 'BEGIN{print (p+0>=t+0)?"yes":"no"}')
@@ -52,7 +52,8 @@ jobs:
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: coverage.out
+          files: coverage.txt
+          fail_ci_if_error: true
 
       - name: Test cmd (integration)
         run: go test ./cmd/ten/...
