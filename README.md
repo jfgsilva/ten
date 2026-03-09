@@ -413,9 +413,18 @@ Options:
 ## Development
 
 ```sh
-go test ./...
 go build ./cmd/ten
 echo "say hi" | TEN_TEST=1 ./ten
+
+# run tests with coverage
+go test -coverprofile=coverage.out -covermode=atomic ./internal/...
+go tool cover -func=coverage.out
+
+# run all tests (including integration)
+go test ./...
+
+# lint
+golangci-lint run ./... --config=.github/.golangci.yml
 ```
 
 ---
