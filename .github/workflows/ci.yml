@@ -48,6 +48,12 @@ jobs:
           check_threshold "github.com/jfgsilva/ten/internal/config" 78
           check_threshold "github.com/jfgsilva/ten/internal/prompt" 82
 
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: coverage.out
+
       - name: Test cmd (integration)
         run: go test ./cmd/ten/...
 
