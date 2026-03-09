@@ -423,8 +423,6 @@ go tool cover -func=coverage.out
 # run all tests (including integration)
 go test ./...
 
-# lint
-golangci-lint run ./... --config=.github/.golangci.yml
 ```
 
 ---
