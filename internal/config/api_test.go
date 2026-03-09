@@ -26,6 +26,41 @@ func TestGetAPIKeyEmpty(t *testing.T) {
 	}
 }
 
+func TestGetAPIConfigHappy(t *testing.T) {
+	dir := t.TempDir()
+	t.Setenv(tenConfigEnvVar, dir)
+	if err := GenerateDefaultAPIConfigs(); err != nil {
+		t.Fatal(err)
+	}
+	cfg := GetAPIConfig("openai")
+	if cfg.URL == "" {
+		t.Error("want non-empty URL")
+	}
+	if cfg.DefaultModel != "gpt-4" {
+		t.Errorf("want gpt-4, got %s", cfg.DefaultModel)
+	}
+}
+
+func TestGetAPIConfigUnknownPanics(t *testing.T) {
+	dir := t.TempDir()
+	t.Setenv(tenConfigEnvVar, dir)
+	if err := GenerateDefaultAPIConfigs(); err != nil {
+		t.Fatal(err)
+	}
+	panicked := false
+	func() {
+		defer func() {
+			if r := recover(); r != nil {
+				panicked = true
+			}
+		}()
+		GetAPIConfig("nonexistent")
+	}()
+	if !panicked {
+		t.Error("expected panic for unknown api")
+	}
+}
+
 func TestGenerateDefaultAPIConfigs(t *testing.T) {
 	dir := t.TempDir()
 	t.Setenv(tenConfigEnvVar, dir)

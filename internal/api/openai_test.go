@@ -19,7 +19,7 @@ func TestCallOpenAI(t *testing.T) {
 				{"message": map[string]string{"role": "assistant", "content": "hello from openai"}},
 			},
 		}
-		json.NewEncoder(w).Encode(resp)
+		json.NewEncoder(w).Encode(resp) //nolint:errcheck
 	}))
 	defer srv.Close()
 
@@ -51,7 +51,7 @@ func TestCallCerebrasUserAgent(t *testing.T) {
 				{"message": map[string]string{"role": "assistant", "content": "ok"}},
 			},
 		}
-		json.NewEncoder(w).Encode(resp)
+		json.NewEncoder(w).Encode(resp) //nolint:errcheck
 	}))
 	defer srv.Close()
 
@@ -76,7 +76,7 @@ func TestCallAzureOpenAI(t *testing.T) {
 				{"message": map[string]string{"role": "assistant", "content": "azure response"}},
 			},
 		}
-		json.NewEncoder(w).Encode(resp)
+		json.NewEncoder(w).Encode(resp) //nolint:errcheck
 	}))
 	defer srv.Close()
 

@@ -7,6 +7,8 @@
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 [![Go Version](https://img.shields.io/badge/go-1.26-00ADD8.svg)](https://go.dev/dl/)
 
+[![codecov](https://codecov.io/github/jfgsilva/ten/graphs/icicle.svg?token=CLXDCP0EWU)](https://codecov.io/github/jfgsilva/ten)
+
 `ten` is a Go port of [smartcat](https://github.com/efugier/smartcat). It reads text from stdin
 or arguments, sends it to an LLM API, and writes the response to stdout. Designed for Unix
 pipelines, editor integration, and terminal power users.
@@ -413,9 +415,16 @@ Options:
 ## Development
 
 ```sh
-go test ./...
 go build ./cmd/ten
 echo "say hi" | TEN_TEST=1 ./ten
+
+# run tests with coverage
+go test -coverprofile=coverage.out -covermode=atomic ./internal/...
+go tool cover -func=coverage.out
+
+# run all tests (including integration)
+go test ./...
+
 ```
 
 ---

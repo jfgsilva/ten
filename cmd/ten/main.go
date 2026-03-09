@@ -79,7 +79,7 @@ Examples:
 				var err error
 				p, err = config.LoadConversation()
 				if err != nil {
-					return fmt.Errorf("loading conversation: %w\nRun ten first to create a conversation.", err)
+					return fmt.Errorf("loading conversation: %w\nRun ten first to create a conversation", err)
 				}
 				if len(args) > 1 {
 					return fmt.Errorf("cannot provide a template ref when extending a conversation.\nUse: ten -e \"<your prompt>\"")

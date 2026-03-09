@@ -82,7 +82,7 @@ func SaveConversation(p Prompt) error {
 	if err != nil {
 		return err
 	}
-	defer f.Close()
+	defer f.Close() //nolint:errcheck
 	return toml.NewEncoder(f).Encode(p)
 }
 
@@ -95,7 +95,7 @@ func GenerateDefaultPrompts() error {
 	if err != nil {
 		return err
 	}
-	defer f.Close()
+	defer f.Close() //nolint:errcheck
 
 	header := "# Prompt config file\n# more details at https://github.com/jfgsilva/ten\n\n"
 	if _, err := f.WriteString(header); err != nil {

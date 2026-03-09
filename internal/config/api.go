@@ -110,7 +110,7 @@ func GenerateDefaultAPIConfigs() error {
 	if err != nil {
 		return err
 	}
-	defer f.Close()
+	defer f.Close() //nolint:errcheck
 
 	header := "# API config file — use api_key or api_key_command fields to set credentials\n" +
 		"# Example: api_key_command = \"op read op://vault/item/field\"\n\n"
