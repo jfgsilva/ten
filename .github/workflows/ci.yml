@@ -28,7 +28,7 @@ jobs:
         run: CGO_ENABLED=0 go build -ldflags="-s -w" ./cmd/ten
 
       - name: golangci-lint
-        uses: golangci/golangci-lint-action@v6
+        uses: golangci/golangci-lint-action@v7
         with:
           version: v2.1.6
           args: --timeout=5m --config=.github/.golangci.yml
