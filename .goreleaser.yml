@@ -56,55 +56,19 @@ changelog:
       - Merge pull request
       - Merge branch
 
-dockers:
-  - id: ten-amd64
-    ids:
+dockers_v2:
+  - ids:
       - ten
-    goos: linux
-    goarch: amd64
-    use: buildx
     dockerfile: Dockerfile.goreleaser
-    image_templates:
-      - ghcr.io/jfgsilva/ten:{{ .Version }}-amd64
-      - ghcr.io/jfgsilva/ten:{{ .Major }}.{{ .Minor }}-amd64
-    build_flag_templates:
-      - --platform=linux/amd64
-      - --label=org.opencontainers.image.title={{ .ProjectName }}
-      - --label=org.opencontainers.image.version={{ .Version }}
-      - --label=org.opencontainers.image.created={{ .Date }}
-      - --label=org.opencontainers.image.revision={{ .FullCommit }}
-      - --label=org.opencontainers.image.source=https://github.com/jfgsilva/ten
-
-  - id: ten-arm64
-    ids:
-      - ten
-    goos: linux
-    goarch: arm64
-    use: buildx
-    dockerfile: Dockerfile.goreleaser
-    image_templates:
-      - ghcr.io/jfgsilva/ten:{{ .Version }}-arm64
-      - ghcr.io/jfgsilva/ten:{{ .Major }}.{{ .Minor }}-arm64
-    build_flag_templates:
-      - --platform=linux/arm64
-      - --label=org.opencontainers.image.title={{ .ProjectName }}
-      - --label=org.opencontainers.image.version={{ .Version }}
-      - --label=org.opencontainers.image.created={{ .Date }}
-      - --label=org.opencontainers.image.revision={{ .FullCommit }}
-      - --label=org.opencontainers.image.source=https://github.com/jfgsilva/ten
-
-docker_manifests:
-  - name_template: ghcr.io/jfgsilva/ten:{{ .Version }}
-    image_templates:
-      - ghcr.io/jfgsilva/ten:{{ .Version }}-amd64
-      - ghcr.io/jfgsilva/ten:{{ .Version }}-arm64
-
-  - name_template: ghcr.io/jfgsilva/ten:{{ .Major }}.{{ .Minor }}
-    image_templates:
-      - ghcr.io/jfgsilva/ten:{{ .Major }}.{{ .Minor }}-amd64
-      - ghcr.io/jfgsilva/ten:{{ .Major }}.{{ .Minor }}-arm64
-
-  - name_template: ghcr.io/jfgsilva/ten:latest
-    image_templates:
-      - ghcr.io/jfgsilva/ten:{{ .Version }}-amd64
-      - ghcr.io/jfgsilva/ten:{{ .Version }}-arm64
+    images:
+      - ghcr.io/jfgsilva/ten
+    tags:
+      - "{{ .Version }}"
+      - "{{ .Major }}.{{ .Minor }}"
+      - "{{ if not .IsNightly }}latest{{ end }}"
+    labels:
+      "org.opencontainers.image.title": "{{ .ProjectName }}"
+      "org.opencontainers.image.version": "{{ .Version }}"
+      "org.opencontainers.image.created": "{{ .Date }}"
+      "org.opencontainers.image.revision": "{{ .FullCommit }}"
+      "org.opencontainers.image.source": "https://github.com/jfgsilva/ten"
