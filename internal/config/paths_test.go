@@ -15,7 +15,7 @@ func TestConfigDirCustomEnv(t *testing.T) {
 }
 
 func TestConfigDirSmartcatFallback(t *testing.T) {
-	os.Unsetenv(tenConfigEnvVar)          //nolint:errcheck
+	os.Unsetenv(tenConfigEnvVar) //nolint:errcheck
 	t.Setenv(smartcatConfigEnvVar, "/tmp/smartcat")
 	defer os.Unsetenv(smartcatConfigEnvVar) //nolint:errcheck
 	if got := ConfigDir(); got != "/tmp/smartcat" {

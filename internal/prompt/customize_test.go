@@ -77,7 +77,7 @@ func TestCustomizeContextFile(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	defer os.Remove(f.Name()) //nolint:errcheck
+	defer os.Remove(f.Name())    //nolint:errcheck
 	f.WriteString("hello there") //nolint:errcheck
 	f.Close()                    //nolint:errcheck
 

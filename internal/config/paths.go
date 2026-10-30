@@ -10,8 +10,8 @@ const (
 	tenConfigEnvVar      = "TEN_CONFIG_PATH"
 	smartcatConfigEnvVar = "SMARTCAT_CONFIG_PATH" // backward compat alias
 
-	apiConfigFile   = ".api_configs.toml"
-	promptsFile     = "prompts.toml"
+	apiConfigFile    = ".api_configs.toml"
+	promptsFile      = "prompts.toml"
 	conversationFile = "conversation.toml"
 )
 

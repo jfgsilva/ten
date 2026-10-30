@@ -17,11 +17,11 @@ type Message struct {
 
 // Prompt is a named prompt template loaded from prompts.toml.
 type Prompt struct {
-	API         string   `toml:"api"`
-	Model       string   `toml:"model,omitempty"`
+	API         string    `toml:"api"`
+	Model       string    `toml:"model,omitempty"`
 	Messages    []Message `toml:"messages"`
-	Temperature *float64 `toml:"temperature,omitempty"`
-	CharLimit   *int     `toml:"char_limit,omitempty"`
+	Temperature *float64  `toml:"temperature,omitempty"`
+	CharLimit   *int      `toml:"char_limit,omitempty"`
 }
 
 // DefaultPrompt returns the built-in default prompt (ollama/phi3).
