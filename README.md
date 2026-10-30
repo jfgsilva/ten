@@ -138,6 +138,27 @@ docker pull ghcr.io/jfgsilva/ten:latest
 Currently the best results are achieved with APIs from Anthropic, Mistral, or OpenAI. It costs
 about $2–3 a month for typical use with the best models.
 
+For short shell-command tasks, smaller non-reasoning models are usually fastest. To compare models
+on your own setup, time the same prompt against each one with `-m`:
+
+```sh
+for M in gpt-6-luna gpt-5.4-nano gpt-6.1-terra; do
+  echo "== $M"
+  /usr/bin/time -p ten -m "$M" "find files larger than 100MB modified in the last 7 days" 2>&1 | grep -v '^user\|^sys'
+done
+```
+
+Example results (October 2026, two runs each):
+
+| Model           | Output                                          | `real`      |
+|-----------------|-------------------------------------------------|-------------|
+| `gpt-5.4-nano`  | `find . -type f -size +100M -mtime -7 -print`   | 2.6–2.8s    |
+| `gpt-6-luna`    | `find . -type f -size +100M -mtime -7`          | 4.0–5.0s    |
+| `gpt-6.1-terra` | `find . -type f -size +100M -mtime -7`          | 4.9–5.7s    |
+
+Set the winner as `default_model` for that provider in `.api_configs.toml`. Timings include
+`api_key_command`, which runs on every call, so a slow password-manager lookup adds to each result.
+
 ---
 
 ## A few examples to get started

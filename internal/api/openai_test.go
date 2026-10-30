@@ -57,8 +57,8 @@ func TestCallCerebrasUserAgent(t *testing.T) {
 
 	cfg := config.ApiConfig{APIKey: "key", URL: srv.URL}
 	p := config.Prompt{
-		API:   "cerebras",
-		Model: "llama3",
+		API:      "cerebras",
+		Model:    "llama3",
 		Messages: []config.Message{{Role: "user", Content: "hi"}},
 	}
 	if _, err := callOpenAI(cfg, p); err != nil {
@@ -82,8 +82,8 @@ func TestCallAzureOpenAI(t *testing.T) {
 
 	cfg := config.ApiConfig{APIKey: "azurekey", URL: srv.URL}
 	p := config.Prompt{
-		API:   "azureopenai",
-		Model: "gpt-4o",
+		API:      "azureopenai",
+		Model:    "gpt-4o",
 		Messages: []config.Message{{Role: "user", Content: "hi"}},
 	}
 	msg, err := callOpenAI(cfg, p)

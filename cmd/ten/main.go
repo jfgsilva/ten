@@ -139,9 +139,9 @@ Examples:
 
 			// Build prompt customization params
 			params := tenprompt.Params{
-				API:      apiOverride,
-				Model:    modelOverride,
-				Context:  contextGlobs,
+				API:     apiOverride,
+				Model:   modelOverride,
+				Context: contextGlobs,
 			}
 			if temperatureSet {
 				params.Temperature = &temperatureFlag
