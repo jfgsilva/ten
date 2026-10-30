@@ -6,6 +6,10 @@ updates:
     schedule:
       interval: weekly
       day: monday
+    groups:
+      gomod:
+        patterns:
+          - "*"
     labels:
       - dependencies
 
@@ -14,6 +18,10 @@ updates:
     schedule:
       interval: weekly
       day: monday
+    groups:
+      github-actions:
+        patterns:
+          - "*"
     labels:
       - dependencies
       - github-actions
@@ -23,6 +31,10 @@ updates:
     schedule:
       interval: weekly
       day: monday
+    groups:
+      docker:
+        patterns:
+          - "*"
     labels:
       - dependencies
       - docker
